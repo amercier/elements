@@ -1,6 +1,20 @@
+var isContinuousIntegration = process.env.CI === 'true';
+
+var istanbulify = ['browserify-istanbul', {
+    instrumenter: require('isparta'),
+    ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**']
+  }],
+  babelify = ['babelify', {
+    'stage': 0,
+    'ignore': ['./node_modules', './bower_components']
+  }];
+
 module.exports = function(config) {
 
   config.set({
+    singleRun: isContinuousIntegration,
+    autoWatch: !isContinuousIntegration,
+
     frameworks: ['browserify', 'mocha', 'sinon-chai'],
 
     // Source and test files
@@ -12,17 +26,7 @@ module.exports = function(config) {
     // ES6 => CJS => ES5 pre-processsing
     browserify: {
       debug: true,
-      transform: [
-        ['browserify-istanbul', {
-          instrumenter: require('isparta'),
-          ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**']
-        }],
-        ['babelify', {
-          'stage': 0,
-          'optional': ['es7.asyncFunctions'],
-          'ignore': ['./node_modules', './bower_components']
-        }]
-      ]
+      transform: isContinuousIntegration ? [istanbulify, babelify] : [babelify]
     },
     preprocessors: {
       'src/**/*.js': ['browserify'],
@@ -32,14 +36,12 @@ module.exports = function(config) {
     // Browser configuration
     browsers: ['PhantomJS'],
 
-    // Enable Mocha HTML reported
+    // Reporters
+    reporters: isContinuousIntegration ? ['dots', 'coverage'] : ['progress'],
     client: {
       mocha: {
-        reporter: 'html'
+        reporter: 'html' // Enable Mocha HTML reported
       }
-    },
-
-    reporters: ['progress', 'coverage']
+    }
   });
-
 };

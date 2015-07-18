@@ -14,7 +14,7 @@
     "phantomjs": "^1.9.17"
   },
   "scripts": {
-    "test": "karma start --single-run",
+    "test": "CI=true karma start",
     "tdd": "karma start"
   }
 }
