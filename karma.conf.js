@@ -28,11 +28,6 @@ module.exports = function(config) {
       'src/**/*.js': ['browserify'],
       'test/**/*.js': ['browserify']
     },
-    babelPreprocessor: {
-      options: {
-        sourceMap: 'inline'
-      }
-    },
 
     // Browser configuration
     browsers: ['PhantomJS'],

@@ -5,7 +5,6 @@
     "browserify-istanbul": "^0.2.1",
     "isparta": "^3.0.3",
     "karma": "^0.13.2",
-    "karma-babel-preprocessor": "^5.2.1",
     "karma-browserify": "^4.2.1",
     "karma-coverage": "^0.4.2",
     "karma-mocha": "^0.2.0",
