@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "no-new": 0
+  },
+  "globals": {
+    "describe": true,
+    "it": true,
+    "expect": true
+  }
+}
