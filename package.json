@@ -14,7 +14,7 @@
     "phantomjs": "^1.9.17"
   },
   "scripts": {
-    "test": "CI=true karma start",
+    "test": "rm -rf coverage && CI=true karma start",
     "tdd": "karma start"
   }
 }

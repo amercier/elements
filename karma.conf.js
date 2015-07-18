@@ -40,8 +40,15 @@ module.exports = function(config) {
     reporters: isContinuousIntegration ? ['dots', 'coverage'] : ['progress'],
     client: {
       mocha: {
-        reporter: 'html' // Enable Mocha HTML reported
+        reporter: 'html' // Enable Mocha HTML reporter
       }
+    },
+    coverageReporter: {
+      reporters: [
+        { type: 'text-summary' },
+        { subdir: '.', type: 'html' },
+        { subdir: '.', type: 'lcovonly' }
+      ]
     }
   });
 };
