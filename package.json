@@ -2,9 +2,12 @@
   "name": "elementsjs",
   "devDependencies": {
     "babelify": "^6.1.3",
+    "browserify-istanbul": "^0.2.1",
+    "codecov.io": "^0.1.5",
+    "isparta": "^3.0.3",
     "karma": "^0.13.2",
-    "karma-babel-preprocessor": "^5.2.1",
     "karma-browserify": "^4.2.1",
+    "karma-coverage": "^0.4.2",
     "karma-mocha": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.0",
     "karma-sinon-chai": "^1.0.0",
@@ -12,7 +15,7 @@
     "phantomjs": "^1.9.17"
   },
   "scripts": {
-    "test": "karma start --single-run",
+    "test": "rm -rf coverage && CI=true karma start",
     "tdd": "karma start"
   }
 }
