@@ -11,7 +11,18 @@ module.exports = function(config) {
 
     // ES6 => CJS => ES5 pre-processsing
     browserify: {
-      transform: ['babelify']
+      debug: true,
+      transform: [
+        ['browserify-istanbul', {
+          instrumenter: require('isparta'),
+          ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**']
+        }],
+        ['babelify', {
+          'stage': 0,
+          'optional': ['es7.asyncFunctions'],
+          'ignore': ['./node_modules', './bower_components']
+        }]
+      ]
     },
     preprocessors: {
       'src/**/*.js': ['browserify'],
@@ -31,7 +42,9 @@ module.exports = function(config) {
       mocha: {
         reporter: 'html'
       }
-    }
+    },
+
+    reporters: ['progress', 'coverage']
   });
 
 };
