@@ -1,4 +1,5 @@
 import imperative from './helpers/imperative';
+import isString from './helpers/isString';
 import slice from './helpers/slice';
 import toString from './helpers/toString';
 
@@ -19,7 +20,7 @@ export default class Elements {
     else if (input instanceof Node) {
       this.elements = [input];
     }
-    else if (input instanceof String) {
+    else if (isString(input)) {
       const constructor = this.constructor,
         find = imperative(constructor.prototype.find);
       this.elements = find(new constructor(document), input);
