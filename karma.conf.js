@@ -1,3 +1,6 @@
+/* eslint-env node */
+/* eslint camelcase: 0, no-process-env: 0, no-var: 0 */
+
 var isContinuousIntegration = process.env.CI === 'true';
 
 var istanbulify = ['browserify-istanbul', {
@@ -5,9 +8,16 @@ var istanbulify = ['browserify-istanbul', {
     ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**']
   }],
   babelify = ['babelify', {
-    'stage': 0,
-    'ignore': ['./node_modules', './bower_components']
+    stage: 0,
+    ignore: ['./node_modules', './bower_components']
   }];
+
+/**
+ * Karma test runner configuration
+ * ===============================
+ *
+ * See http://karma-runner.github.io/
+ */
 
 module.exports = function(config) {
 
