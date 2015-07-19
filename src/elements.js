@@ -1,4 +1,3 @@
-import isString from './helpers/isString';
 import matches from './helpers/matches';
 import slice from './helpers/slice';
 import union from './helpers/union';
@@ -12,10 +11,7 @@ export default class Elements {
   /**
    * Create an instance of `Elements`.
    *
-   * @param {Node|Node[]|NodeList|null} input Input DOM node, or array of nodes. As a convenience,
-   *                                          you can pass a CSS selector:
-   *                                          `new Elements('#my-class')`. This is equivalent to:
-   *                                          `new Elements(document).find('#my-class')`.
+   * @param {Node|Node[]|NodeList|null} input Input DOM node, or array of nodes.
    */
   constructor(input) {
     if (!input) {
@@ -23,9 +19,6 @@ export default class Elements {
     }
     else if (input instanceof Node) {
       this.elements = [input];
-    }
-    else if (isString(input)) {
-      this.elements = new this.constructor(document).find(input).elements;
     }
     else if (input.hasOwnProperty('length')) {
       this.elements = uniq(slice(input));

@@ -101,16 +101,6 @@ describe('constructor', () => {
   });
 
 
-  describe('new Elements(String)', () => {
-
-    it('doesn\'t fail', () => {
-      expect(() => {
-        new Elements('p');
-      }).not.to.throw();
-    });
-  });
-
-
   describe('new Elements({})', () => {
 
     it('fails', () => {
