@@ -3,23 +3,24 @@
 
 var isContinuousIntegration = process.env.CI === 'true';
 
-var istanbulify = ['browserify-istanbul', {
-    instrumenter: require('isparta'),
-    ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**']
-  }],
-  babelify = ['babelify', {
-    stage: 0,
-    ignore: ['./node_modules', './bower_components']
-  }];
-
 /**
  * Karma test runner configuration
  * ===============================
  *
  * See http://karma-runner.github.io/
+ *
+ * @param {Object} config Karma configuration object
  */
-
 module.exports = function(config) {
+
+  var istanbulify = ['browserify-istanbul', {
+      instrumenter: require('isparta'),
+      ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**']
+    }],
+    babelify = ['babelify', {
+      stage: 0,
+      ignore: ['./node_modules', './bower_components']
+    }];
 
   config.set({
     singleRun: isContinuousIntegration,
