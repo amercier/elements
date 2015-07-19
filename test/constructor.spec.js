@@ -1,7 +1,15 @@
+import loadMochaFixture from './helpers/loadMochaFixture';
+
 import slice from '../src/helpers/slice';
 import Elements from '../src/elements';
 
 describe('constructor', () => {
+
+  let fixture;
+  beforeEach(function() {
+    loadMochaFixture('fixtures/test.html');
+    fixture = document.getElementById('fixture');
+  });
 
   describe('new Elements()', () => {
 
@@ -12,6 +20,7 @@ describe('constructor', () => {
     });
   });
 
+
   describe('new Elements(Document)', () => {
 
     it('doesn\'t fail', () => {
@@ -20,6 +29,7 @@ describe('constructor', () => {
       }).not.to.throw();
     });
   });
+
 
   describe('new Elements(Document[])', () => {
 
@@ -38,33 +48,37 @@ describe('constructor', () => {
     });
   });
 
+
   describe('new Elements(NodeList)', () => {
 
     it('doesn\'t fail', () => {
+      const input = fixture.querySelectorAll('p');
       expect(() => {
-        new Elements(document.querySelectorAll('div'));
+        new Elements(input);
       }).not.to.throw();
     });
 
     it('contains all given elements', () => {
-      const subject = new Elements(document).find('div');
-      expect(subject)
+      const input = fixture.querySelectorAll('p'),
+        length = input.length;
+      expect(new Elements(input))
         .to.have.property('elements')
         .that.is.an('array')
-        .that.has.length(document.querySelectorAll('div').length);
+        .that.has.length(length);
     });
   });
+
 
   describe('new Elements(HTMLElement[])', () => {
 
     it('doesn\'t fail', () => {
       expect(() => {
-        new Elements(slice(document.querySelectorAll('div')));
+        new Elements(slice(fixture.querySelectorAll('p')));
       }).not.to.throw();
     });
 
     it('contains all elements', () => {
-      const input = slice(document.querySelectorAll('div')),
+      const input = slice(fixture.querySelectorAll('p')),
         subject = new Elements(input);
       expect(subject)
         .to.have.property('elements')
@@ -74,10 +88,10 @@ describe('constructor', () => {
 
     it('deduplicates input', () => {
       const input = [].concat(
-          slice(document.querySelectorAll('div')),
-          slice(document.querySelectorAll('div'))
+          slice(fixture.querySelectorAll('p')),
+          slice(fixture.querySelectorAll('p'))
         ),
-        length = input.length,
+        length = input.length / 2,
         subject = new Elements(input);
       expect(subject)
         .to.have.property('elements')
@@ -86,14 +100,16 @@ describe('constructor', () => {
     });
   });
 
+
   describe('new Elements(String)', () => {
 
     it('doesn\'t fail', () => {
       expect(() => {
-        new Elements('div');
+        new Elements('p');
       }).not.to.throw();
     });
   });
+
 
   describe('new Elements({})', () => {
 
