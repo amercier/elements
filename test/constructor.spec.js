@@ -1,56 +1,68 @@
-import Elements from '../src/elements';
 import slice from '../src/helpers/slice';
+import Elements from '../src/elements';
 
-describe('new Elements()', () => {
+describe('constructor', () => {
 
-  it('doesn\'t fail', function() {
-    expect(() => {
-      new Elements();
-    }).not.to.throw();
+  describe('new Elements()', () => {
+
+    it('doesn\'t fail', () => {
+      expect(() => {
+        new Elements();
+      }).not.to.throw();
+    });
   });
-});
 
-describe('new Elements(document)', () => {
+  describe('new Elements(document)', () => {
 
-  it('doesn\'t fail', function() {
-    expect(() => {
-      new Elements(document);
-    }).not.to.throw();
+    it('doesn\'t fail', () => {
+      expect(() => {
+        new Elements(document);
+      }).not.to.throw();
+    });
   });
-});
 
-describe('new Elements(NodeList)', () => {
+  describe('new Elements(NodeList)', () => {
 
-  it('doesn\'t fail', function() {
-    expect(() => {
-      new Elements(document.querySelectorAll('*'));
-    }).not.to.throw();
+    it('doesn\'t fail', () => {
+      expect(() => {
+        new Elements(document.querySelectorAll('div'));
+      }).not.to.throw();
+    });
+
+    it('contains all given elements', () => {
+      const subject = new Elements(document).find('div');
+      expect(subject)
+        .to.have.property('elements')
+        .that.is.an('array')
+        .that.has.length(document.querySelectorAll('div').length);
+    });
   });
-});
 
-describe('new Elements(HTMLElement[])', () => {
+  describe('new Elements(HTMLElement[])', () => {
 
-  it('doesn\'t fail', function() {
-    expect(() => {
-      new Elements(slice(document.querySelectorAll('*')));
-    }).not.to.throw();
+    it('doesn\'t fail', () => {
+      expect(() => {
+        new Elements(slice(document.querySelectorAll('div')));
+      }).not.to.throw();
+    });
   });
-});
 
-describe('new Elements(String)', () => {
+  describe('new Elements(String)', () => {
 
-  it('doesn\'t fail', function() {
-    expect(() => {
-      new Elements('*');
-    }).not.to.throw();
+    it('doesn\'t fail', () => {
+      expect(() => {
+        new Elements('div');
+      }).not.to.throw();
+    });
   });
-});
 
-describe('new Elements({})', () => {
+  describe('new Elements({})', () => {
 
-  it('fails', function() {
-    expect(() => {
-      new Elements({});
-    }).to.throw('Expected input to be a Node or an array-like object, got [object Object]');
+    it('fails', () => {
+      expect(() => {
+        new Elements({});
+      }).to.throw('Expected input to be a Node or an array-like object, got [object Object]');
+    });
   });
+
 });
