@@ -1,6 +1,8 @@
 import isString from './helpers/isString';
+import matches from './helpers/matches';
 import slice from './helpers/slice';
 import union from './helpers/union';
+import flatten from 'lodash/internal/baseFlatten';
 import uniq from 'lodash/internal/baseUniq';
 
 const toString = Object.prototype.toString;
@@ -42,6 +44,12 @@ export default class Elements {
   children() {
     return new this.constructor(union(this.elements.map(element => {
       return slice(element.children);
+    })));
+  }
+
+  matching(selector) {
+    return new this.constructor(flatten(this.elements.filter(element => {
+      return matches(element, selector);
     })));
   }
 }
