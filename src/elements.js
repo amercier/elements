@@ -17,6 +17,9 @@ export default class Elements {
     if (!input) {
       this.elements = [];
     }
+    else if (input instanceof Elements) {
+      this.elements = slice(this.elements);
+    }
     else if (input instanceof Node) {
       this.elements = [input];
     }
