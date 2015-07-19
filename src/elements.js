@@ -1,6 +1,7 @@
 import isString from './helpers/isString';
 import slice from './helpers/slice';
 import union from './helpers/union';
+import uniq from 'lodash/internal/baseUniq';
 
 const toString = Object.prototype.toString;
 
@@ -25,7 +26,7 @@ export default class Elements {
       this.elements = new this.constructor(document).find(input).elements;
     }
     else if (input.hasOwnProperty('length')) {
-      this.elements = slice(input);
+      this.elements = uniq(slice(input));
     }
     else {
       throw new Error('Expected input to be a Node or an array-like object, got ' + toString.call(input));

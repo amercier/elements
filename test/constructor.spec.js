@@ -12,12 +12,29 @@ describe('constructor', () => {
     });
   });
 
-  describe('new Elements(document)', () => {
+  describe('new Elements(Document)', () => {
 
     it('doesn\'t fail', () => {
       expect(() => {
         new Elements(document);
       }).not.to.throw();
+    });
+  });
+
+  describe('new Elements(Document[])', () => {
+
+    it('doesn\'t fail', () => {
+      expect(() => {
+        new Elements([document, document]);
+      }).not.to.throw();
+    });
+
+    it('deduplicates input', () => {
+      const subject = new Elements([document, document]);
+      expect(subject)
+        .to.have.property('elements')
+        .that.is.an('array')
+        .that.has.length(1);
     });
   });
 
@@ -44,6 +61,28 @@ describe('constructor', () => {
       expect(() => {
         new Elements(slice(document.querySelectorAll('div')));
       }).not.to.throw();
+    });
+
+    it('contains all elements', () => {
+      const input = slice(document.querySelectorAll('div')),
+        subject = new Elements(input);
+      expect(subject)
+        .to.have.property('elements')
+        .that.is.an('array')
+        .that.has.length(input.length);
+    });
+
+    it('deduplicates input', () => {
+      const input = [].concat(
+          slice(document.querySelectorAll('div')),
+          slice(document.querySelectorAll('div'))
+        ),
+        length = input.length,
+        subject = new Elements(input);
+      expect(subject)
+        .to.have.property('elements')
+        .that.is.an('array')
+        .that.has.length(length);
     });
   });
 
