@@ -38,4 +38,10 @@ export default class Elements {
       return slice(element.querySelectorAll(selector));
     })));
   }
+
+  children() {
+    return new this.constructor(union(this.elements.map(element => {
+      return slice(element.children);
+    })));
+  }
 }
