@@ -1,8 +1,8 @@
 sudo: false
 language: node_js
 after_success:
-  cat coverage/lcov.info | ./node_modules/.bin/codecov
-  cat coverage/lcov.info | ./node_modules/.bin/codeclimate-test-reporter
+- cat coverage/lcov.info | ./node_modules/.bin/codecov
+- cat coverage/lcov.info | ./node_modules/.bin/codeclimate-test-reporter
 cache:
   directories:
   - bower_components
