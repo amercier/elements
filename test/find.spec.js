@@ -1,4 +1,5 @@
 import loadMochaFixture from './helpers/loadMochaFixture';
+import forIn from 'lodash/internal/baseForIn';
 
 import Elements from '../src/elements';
 
@@ -26,8 +27,14 @@ describe('find', function() {
     });
   });
 
-
-  ['p', 'div p', 'p > *', 'p > *', '* > * > *', 'main *'].forEach(selector => {
+  forIn({
+    p: 67,
+    'p *': 97,
+    'div *': 427,
+    'p > *': 91,
+    'article > * > * > *': 69,
+    'main *': 363
+  }, function(count, selector) {
     describe('("' + selector + '")', () => {
 
       it('returns an instance of Elements', function() {
@@ -35,12 +42,12 @@ describe('find', function() {
         expect(subject).to.be.an.instanceof(Elements);
       });
 
-      it('finds all elements', function() {
+      it('finds ' + count + ' elements', function() {
         const subject = new Elements(fixture).find(selector);
         expect(subject)
           .to.have.property('elements')
           .that.is.an('array')
-          .that.has.length(fixture.querySelectorAll(selector).length);
+          .that.has.length(count);
       });
     });
   });
