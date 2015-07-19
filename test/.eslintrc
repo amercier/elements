@@ -1,6 +1,7 @@
 {
   "rules": {
-    "no-new": 0
+    "no-new": 0,
+    "max-nested-callbacks": 0
   },
   "globals": {
     "describe": true,

@@ -1,6 +1,9 @@
 import isString from './helpers/isString';
 import slice from './helpers/slice';
-import toString from './helpers/toString';
+import union from './helpers/union';
+import uniq from 'lodash/internal/baseUniq';
+
+const toString = Object.prototype.toString;
 
 export default class Elements {
 
@@ -14,7 +17,7 @@ export default class Elements {
    */
   constructor(input) {
     if (!input) {
-      this.element = [];
+      this.elements = [];
     }
     else if (input instanceof Node) {
       this.elements = [input];
@@ -23,14 +26,16 @@ export default class Elements {
       this.elements = new this.constructor(document).find(input).elements;
     }
     else if (input.hasOwnProperty('length')) {
-      this.elements = slice(input);
+      this.elements = uniq(slice(input));
     }
     else {
-      throw new Error('Expected input to be a Node or an array-like object, got ' + toString(input));
+      throw new Error('Expected input to be a Node or an array-like object, got ' + toString.call(input));
     }
   }
 
-  find() {
-    return new this.constructor();
+  find(selector) {
+    return new this.constructor(union(this.elements.map(element => {
+      return element.querySelectorAll(selector);
+    })));
   }
 }
