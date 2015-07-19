@@ -35,7 +35,7 @@ export default class Elements {
 
   find(selector) {
     return new this.constructor(union(this.elements.map(element => {
-      return element.querySelectorAll(selector);
+      return slice(element.querySelectorAll(selector));
     })));
   }
 }
