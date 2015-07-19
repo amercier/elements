@@ -36,20 +36,20 @@ export default class Elements {
   }
 
   find(selector) {
-    return new this.constructor(union(this.elements.map(element => {
-      return slice(element.querySelectorAll(selector));
-    })));
+    return new this.constructor(union(this.elements.map(
+      element => slice(element.querySelectorAll(selector))
+    )));
   }
 
   children() {
-    return new this.constructor(union(this.elements.map(element => {
-      return slice(element.children);
-    })));
+    return new this.constructor(union(this.elements.map(
+      element => slice(element.children)
+    )));
   }
 
   matching(selector) {
-    return new this.constructor(flatten(this.elements.filter(element => {
-      return matches(element, selector);
-    })));
+    return new this.constructor(flatten(this.elements.filter(
+      element => matches(element, selector)
+    )));
   }
 }
