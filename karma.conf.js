@@ -30,15 +30,19 @@ module.exports = function(config) {
     // Source and test files
     files: [
       'src/**/*.js',
-      'test/**/*.js'
+      'test/**/*.js',
+      'test/**/*.html'
     ],
 
-    // ES6 => CJS => ES5 pre-processsing
+    // Pre-processing:
+    // - ES6 [=> Istanbul] => CJS => ES5
+    // - HTML => JS
     browserify: {
       debug: true,
       transform: isContinuousIntegration ? [istanbulify, babelify] : [babelify]
     },
     preprocessors: {
+      '**/*.html': ['html2js'],
       'src/**/*.js': ['browserify'],
       'test/**/*.js': ['browserify']
     },
