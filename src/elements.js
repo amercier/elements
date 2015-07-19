@@ -1,4 +1,3 @@
-import imperative from './helpers/imperative';
 import isString from './helpers/isString';
 import slice from './helpers/slice';
 import toString from './helpers/toString';
@@ -21,9 +20,7 @@ export default class Elements {
       this.elements = [input];
     }
     else if (isString(input)) {
-      const constructor = this.constructor,
-        find = imperative(constructor.prototype.find);
-      this.elements = find(new constructor(document), input);
+      this.elements = new this.constructor(document).find(input).elements;
     }
     else if (input.hasOwnProperty('length')) {
       this.elements = slice(input);
@@ -33,4 +30,7 @@ export default class Elements {
     }
   }
 
+  find() {
+    return new this.constructor();
+  }
 }
