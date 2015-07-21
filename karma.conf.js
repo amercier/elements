@@ -70,9 +70,8 @@ module.exports = function(config) {
     },
     coverageReporter: {
       reporters: [
-        { type: 'text-summary' },
-        { subdir: '.', type: 'html' },
-        { subdir: '.', type: 'lcovonly' }
+        { type: 'json' },
+        { type: 'html' }
       ]
     }
   });
