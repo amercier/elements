@@ -23,7 +23,7 @@ export default class Elements {
     else if (input instanceof Node) {
       this.elements = [input];
     }
-    else if (input.hasOwnProperty('length')) {
+    else if (input.length !== undefined) {
       this.elements = uniq(slice(input));
     }
     else {

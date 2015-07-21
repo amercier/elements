@@ -16,9 +16,12 @@
     "coveralls": "^2.11.3",
     "eslint": "^0.24.1",
     "isparta": "^3.0.3",
+    "istanbul": "^0.3.17",
     "karma": "^0.13.2",
     "karma-browserify": "^4.2.1",
+    "karma-chrome-launcher": "^0.2.0",
     "karma-coverage": "^0.4.2",
+    "karma-firefox-launcher": "^0.1.6",
     "karma-html2js-preprocessor": "^0.1.0",
     "karma-mocha": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.0",
@@ -29,7 +32,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "npm run lint && rm -rf coverage && CI=true karma start",
+    "test": "npm run lint && rm -rf coverage && CI=true karma start && istanbul report lcovonly html text-summary",
     "tdd": "karma start",
     "build": "rm -rf dist && broccoli build dist"
   }
