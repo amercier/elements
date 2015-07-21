@@ -49,7 +49,17 @@ module.exports = function(config) {
     },
 
     // Browser configuration
-    browsers: ['PhantomJS'],
+    browsers: isContinuousIntegration ? ['PhantomJS', 'ChromeTravisCI', 'Firefox'] : ['PhantomJSDebug'],
+    customLaunchers: {
+      PhantomJSDebug: {
+        base: 'PhantomJS',
+        debug: true
+      },
+      ChromeTravisCI: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
 
     // Reporters
     reporters: isContinuousIntegration ? ['dots', 'coverage'] : ['progress'],
