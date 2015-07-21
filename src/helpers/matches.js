@@ -7,7 +7,4 @@ export default imperative(
   || elementProto.webkitMatchesSelector
   || elementProto.mozMatchesSelector
   || elementProto.msMatchesSelector
-  || function(selector) {
-    return Array.prototype.indexOf.call(document.querySelectorAll(selector), this) !== -1;
-  }
 );
