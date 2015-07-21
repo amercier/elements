@@ -25,6 +25,19 @@ describe('on', function() {
       expect(events).to.have.deep.property('[0].event.type', 'click');
     });
 
+    it('calls callback on delegated mouse click', function() {
+      const nav = fixture.querySelector('nav'),
+        element = fixture.querySelector('a[href="#text__headings"]'),
+        events = [];
+      new Elements(nav).on('click', 'a', function(event, data) {
+        events.push({ event, data });
+      });
+      simulant.fire(element, 'click');
+      expect(events).to.be.an('array').that.has.length(1);
+      expect(events).to.have.deep.property('[0].event.type', 'click');
+    });
+
+
   });
 
 });
