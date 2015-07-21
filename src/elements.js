@@ -62,5 +62,6 @@ export default class Elements {
     };
 
     this.elements.forEach(element => element.addEventListener(eventType, listener.delegateCallback));
+    return this;
   }
 }
