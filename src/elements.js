@@ -55,13 +55,13 @@ export default class Elements {
       selector = undefined;
     }
 
-    listener.delegateCallback = !selector ? listener : event => {
-      if (matches(event.target, selector)) {
-        listener(event, event.data);
-      }
-    };
-
-    this.elements.forEach(element => element.addEventListener(eventType, listener.delegateCallback));
+    this.elements.forEach(element => {
+      element.addEventListener(eventType, !selector ? listener : event => {
+        if (element !== event.target && matches(event.target, selector)) {
+          listener(event, event.data);
+        }
+      });
+    });
     return this;
   }
 }
