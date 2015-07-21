@@ -37,7 +37,7 @@ describe('on', function() {
       expect(events).to.have.deep.property('[0].event.type', 'click');
     });
 
-    it('doesn\'t callback on delegated mouse click if selector doesn\'t match', function() {
+    it('doesn\'t call callback on delegated mouse click if selector doesn\'t match', function() {
       const nav = fixture.querySelector('nav'),
         element = fixture.querySelector('a[href="#text__headings"]'),
         events = [];
@@ -48,6 +48,15 @@ describe('on', function() {
       expect(events).to.be.an('array').that.has.length(0);
     });
 
+    it('doesn\'t call callback on delegated mouse click on same element', function() {
+      const element = fixture.querySelector('a[href="#text__headings"]'),
+        events = [];
+      new Elements(element).on('click', 'a', function(event, data) {
+        events.push({ event, data });
+      });
+      simulant.fire(element, 'click');
+      expect(events).to.be.an('array').that.has.length(0);
+    });
   });
 
 });
