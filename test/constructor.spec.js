@@ -110,4 +110,25 @@ describe('constructor', () => {
     });
   });
 
+
+  describe('new Elements(Elements)', () => {
+
+    it('doesn\'t fail', () => {
+      const input = new Elements(fixture.querySelectorAll('p'));
+      expect(() => {
+        new Elements(input);
+      }).not.to.throw();
+    });
+
+    it('contains the same elements', () => {
+      const input = new Elements(fixture.querySelectorAll('p'));
+      expect(new Elements(input).elements).to.deep.equal(input.elements);
+    });
+
+    it('does not references the same array', () => {
+      const input = new Elements(fixture.querySelectorAll('p'));
+      expect(new Elements(input).elements).not.to.equal(input.elements);
+    });
+  });
+
 });

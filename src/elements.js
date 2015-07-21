@@ -18,7 +18,7 @@ export default class Elements {
       this.elements = [];
     }
     else if (input instanceof Elements) {
-      this.elements = slice(this.elements);
+      this.elements = slice(input.elements);
     }
     else if (input instanceof Node) {
       this.elements = [input];
@@ -47,5 +47,21 @@ export default class Elements {
     return new this.constructor(flatten(this.elements.filter(
       element => matches(element, selector)
     )));
+  }
+
+  on(eventType, selector, listener) {
+    if (listener === undefined) {
+      listener = selector;
+      selector = undefined;
+    }
+
+    this.elements.forEach(element => {
+      element.addEventListener(eventType, !selector ? listener : event => {
+        if (element !== event.target && matches(event.target, selector)) {
+          listener(event, event.data);
+        }
+      });
+    });
+    return this;
   }
 }
