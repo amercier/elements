@@ -49,7 +49,7 @@ export default class Elements {
     )));
   }
 
-  on(eventType, selector = undefined, listener) {
+  on(eventType, selector, listener) {
     if (listener === undefined) {
       listener = selector;
       selector = undefined;
