@@ -1,6 +1,6 @@
 import imperative from './imperative';
 
-const elementProto = HTMLElement && HTMLElement.prototype || {};
+const elementProto = HTMLElement.prototype;
 
 export default imperative(
   elementProto.matches
