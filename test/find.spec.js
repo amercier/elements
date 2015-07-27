@@ -21,8 +21,7 @@ describe('find', function() {
     it('returns an empty instance of Elements', function() {
       const subject = new Elements(fixture).find();
       expect(subject)
-        .to.have.property('elements')
-        .that.is.an('array')
+        .to.be.an('array')
         .that.has.length(0);
     });
   });
@@ -45,8 +44,7 @@ describe('find', function() {
       it('finds ' + count + ' elements', function() {
         const subject = new Elements(fixture).find(selector);
         expect(subject)
-          .to.have.property('elements')
-          .that.is.an('array')
+          .to.be.an('array')
           .that.has.length(count);
       });
     });

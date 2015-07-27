@@ -4,49 +4,29 @@ import mapMany from './internals/mapMany';
 import matches from './internals/matches';
 import toArray from './internals/toArray';
 
-const filter = Array.prototype.filter;
-const forEach = Array.prototype.forEach;
-const map = Array.prototype.map;
+import create from 'lodash/object/create';
 
-export default class Elements {
+export default function Elements(input) {
+  const instance = toArray(input);
+  instance.__proto__ = Elements.prototype; // eslint-disable-line no-proto
+  return instance;
+}
 
-  /**
-   * Create an instance of `Elements`.
-   *
-   * @param {Node|Node[]|NodeList|null} input Input DOM node, or array of nodes.
-   */
-  constructor(input) {
-    this.elements = toArray(input instanceof Elements ? input.elements : input);
-  }
+Elements.prototype = create(Array.prototype, {
 
-  filter() {
-    return new this.constructor(
-      filter.apply(this.elements, arguments)
-    );
-  }
+  find: function(selector) {
+    return new Elements(mapMany(this, element => find(element, selector)));
+  },
 
-  forEach() {
-    forEach.apply(this.elements, arguments);
-    return this;
-  }
+  children: function() {
+    return new Elements(mapMany(this, children));
+  },
 
-  map() {
-    return new this.constructor(map.apply(this.elements, arguments));
-  }
-
-  find(selector) {
-    return new this.constructor(mapMany(this.elements, element => find(element, selector)));
-  }
-
-  children() {
-    return new this.constructor(mapMany(this.elements, children));
-  }
-
-  matching(selector) {
+  matching: function(selector) {
     return this.filter(element => matches(element, selector));
-  }
+  },
 
-  on(eventType, selector, listener) {
+  on: function(eventType, selector, listener) {
     if (listener === undefined) {
       listener = selector;
       selector = undefined;
@@ -61,4 +41,35 @@ export default class Elements {
     });
     return this;
   }
-}
+
+});
+
+[
+  // 'concat',
+  'every',
+  'filter',
+  'forEach',
+  // 'indexOf',
+  // 'join',
+  // 'lastIndexOf',
+  'map',
+  // 'pop',
+  'push',
+  'reduce',
+  'reduceRight',
+  'reverse',
+  'shift',
+  'slice',
+  'some',
+  'sort',
+  'splice',
+  // 'toLocaleString',
+  // 'toString',
+  'unshift'
+].forEach(name => {
+  const method = Array.prototype[name];
+  Elements.prototype[name] = function() {
+    const result = method.apply(this, arguments);
+    return result === undefined ? this : new Elements(result);
+  };
+});
