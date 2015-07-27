@@ -26,7 +26,8 @@ jsTree = browserify(jsTree, {
     }
   },
   browserify: {
-    standalone: name
+    standalone: name,
+    debug: true
   }
 });
 
