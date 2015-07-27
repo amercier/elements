@@ -32,9 +32,19 @@ Elements.prototype = create(Array.prototype, {
       selector = undefined;
     }
 
+    function eventMatches(event, sel) {
+      const currentTarget = event.currentTarget;
+      for (let target = event.target; target && target !== currentTarget; target = target.parentNode) {
+        if (matches(target, sel)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     this.forEach(element => {
       element.addEventListener(eventType, !selector ? listener : event => {
-        if (element !== event.target && matches(event.target, selector)) {
+        if (eventMatches(event, selector)) {
           listener(event, event.data);
         }
       });
