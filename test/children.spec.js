@@ -28,8 +28,7 @@ describe('children', function() {
       it('finds ' + count + ' elements', function() {
         const subject = new Elements(fixture.querySelectorAll(selector)).children();
         expect(subject)
-          .to.have.property('elements')
-          .that.is.an('array')
+          .to.be.an('array')
           .that.has.length(count);
       });
     });

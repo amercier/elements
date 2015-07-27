@@ -42,8 +42,7 @@ describe('constructor', () => {
     it('deduplicates input', () => {
       const subject = new Elements([document, document]);
       expect(subject)
-        .to.have.property('elements')
-        .that.is.an('array')
+        .to.be.an('array')
         .that.has.length(1);
     });
   });
@@ -62,8 +61,7 @@ describe('constructor', () => {
       const input = fixture.querySelectorAll('p'),
         length = input.length;
       expect(new Elements(input))
-        .to.have.property('elements')
-        .that.is.an('array')
+        .to.be.an('array')
         .that.has.length(length);
     });
   });
@@ -81,8 +79,7 @@ describe('constructor', () => {
       const input = slice(fixture.querySelectorAll('p')),
         subject = new Elements(input);
       expect(subject)
-        .to.have.property('elements')
-        .that.is.an('array')
+        .to.be.an('array')
         .that.has.length(input.length);
     });
 
@@ -94,8 +91,7 @@ describe('constructor', () => {
         length = input.length / 2,
         subject = new Elements(input);
       expect(subject)
-        .to.have.property('elements')
-        .that.is.an('array')
+        .to.be.an('array')
         .that.has.length(length);
     });
   });
@@ -122,12 +118,14 @@ describe('constructor', () => {
 
     it('contains the same elements', () => {
       const input = new Elements(fixture.querySelectorAll('p'));
-      expect(new Elements(input).elements).to.deep.equal(input.elements);
+      expect(new Elements(input))
+        .to.be.an('array')
+        .that.has.length(input.length);
     });
 
     it('does not references the same array', () => {
       const input = new Elements(fixture.querySelectorAll('p'));
-      expect(new Elements(input).elements).not.to.equal(input.elements);
+      expect(new Elements(input)).not.to.equal(input);
     });
   });
 
