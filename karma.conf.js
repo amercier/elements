@@ -13,39 +13,44 @@ var isContinuousIntegration = process.env.CI === 'true';
  */
 module.exports = function(config) {
 
-  var istanbulify = ['browserify-istanbul', {
-      instrumenter: require('isparta'),
-      ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**']
-    }],
-    babelify = ['babelify', {
-      stage: 0,
-      ignore: ['./node_modules', './bower_components']
-    }];
+  // var istanbulify = ['browserify-istanbul', {
+  //     instrumenter: require('isparta'),
+  //     ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**']
+  //   }],
+  //   babelify = ['babelify', {
+  //     stage: 0,
+  //     ignore: ['./node_modules', './bower_components']
+  //   }];
 
   config.set({
     singleRun: isContinuousIntegration,
     autoWatch: !isContinuousIntegration,
 
-    frameworks: ['browserify', 'mocha', 'sinon-chai'],
+    frameworks: [/*'browserify',*/ 'mocha', 'sinon-chai'],
 
     // Source and test files
     files: [
-      'src/**/*.js',
-      'test/**/*.js',
+      { pattern: 'src/**/*.js', watched: true, included: true, served: true },
+      { pattern: 'test/**/*.js', watched: true, included: true, served: true },
       'test/**/*.html'
     ],
+
+    proxies: {
+      '/base/src/': 'http://localhost:4200/src/',
+      '/base/test/': 'http://localhost:4200/test/',
+    },
 
     // Pre-processing:
     // - ES6 [=> Istanbul] => CJS => ES5
     // - HTML => JS
-    browserify: {
-      debug: true,
-      transform: isContinuousIntegration ? [istanbulify, babelify] : [babelify]
-    },
+    // browserify: {
+    //   debug: true,
+    //   transform: isContinuousIntegration ? [istanbulify, babelify] : [babelify]
+    // },
     preprocessors: {
-      '**/*.html': ['html2js'],
-      'src/**/*.js': ['browserify'],
-      'test/**/*.js': ['browserify']
+      '**/*.html': ['html2js']//,
+      // 'src/**/*.js': ['broccoli'],
+      // 'test/**/*.js': ['broccoli']
     },
 
     // Browser configuration

@@ -5,6 +5,7 @@
     "broccoli": "^0.16.4",
     "broccoli-babel-transpiler": "^5.2.3",
     "broccoli-cli": "^1.0.0",
+    "broccoli-env": "0.0.1",
     "broccoli-fast-browserify": "^0.2.7",
     "broccoli-funnel": "^0.2.3",
     "broccoli-merge-trees": "^0.2.2",
