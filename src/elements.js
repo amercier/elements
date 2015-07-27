@@ -2,6 +2,7 @@ import children from './internals/children';
 import find from './internals/find';
 import mapMany from './internals/mapMany';
 import matches from './internals/matches';
+import on from './internals/on';
 import toArray from './internals/toArray';
 
 import create from 'lodash/object/create';
@@ -27,31 +28,8 @@ Elements.prototype = create(Array.prototype, {
   },
 
   on: function(eventType, selector, listener) {
-    if (listener === undefined) {
-      listener = selector;
-      selector = undefined;
-    }
-
-    function eventMatches(event, sel) {
-      const currentTarget = event.currentTarget;
-      for (let target = event.target; target && target !== currentTarget; target = target.parentNode) {
-        if (matches(target, sel)) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    this.forEach(element => {
-      element.addEventListener(eventType, !selector ? listener : event => {
-        if (eventMatches(event, selector)) {
-          listener(event, event.data);
-        }
-      });
-    });
-    return this;
+    return this.forEach(element => on(element, eventType, selector, listener));
   }
-
 });
 
 [
