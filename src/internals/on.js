@@ -1,4 +1,4 @@
-import eventMatches from './eventMatches';
+import matchesDelegate from './matchesDelegate';
 
 export default function on(element, eventType, selector, listener) {
 
@@ -8,7 +8,7 @@ export default function on(element, eventType, selector, listener) {
   }
 
   element.addEventListener(eventType, !selector ? listener : event => {
-    if (eventMatches(event, selector)) {
+    if (matchesDelegate(event.target, event.currentTarget, selector)) {
       listener(event, event.data);
     }
   });
