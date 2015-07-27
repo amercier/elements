@@ -6,7 +6,8 @@ var funnel = require('broccoli-funnel'),
   renameFiles = require('broccoli-rename-files'),
   uglify = require('broccoli-uglify-js'),
   babel = require('broccoli-babel-transpiler'),
-  browserify = require('broccoli-fast-browserify');
+  browserify = require('broccoli-fast-browserify'),
+  sourceMap = require('broccoli-source-map');
 
 var name = 'elementjs';
 
@@ -32,7 +33,7 @@ jsTree = browserify(jsTree, {
 });
 
 jsTree = mergeTrees([
-  jsTree,
+  sourceMap.extract(jsTree),
   renameFiles(uglify(jsTree), {
     append: '.min'
   })
