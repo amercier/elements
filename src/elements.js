@@ -1,9 +1,12 @@
-import matches from './helpers/matches';
-import slice from './helpers/slice';
-import union from './helpers/union';
-import flatten from 'lodash/internal/baseFlatten';
-
+import children from './internals/children';
+import find from './internals/find';
+import mapMany from './internals/mapMany';
+import matches from './internals/matches';
 import toArray from './internals/toArray';
+
+const filter = Array.prototype.filter;
+const forEach = Array.prototype.forEach;
+const map = Array.prototype.map;
 
 export default class Elements {
 
@@ -16,22 +19,31 @@ export default class Elements {
     this.elements = toArray(input instanceof Elements ? input.elements : input);
   }
 
+  filter() {
+    return new this.constructor(
+      filter.apply(this.elements, arguments)
+    );
+  }
+
+  forEach() {
+    forEach.apply(this.elements, arguments);
+    return this;
+  }
+
+  map() {
+    return new this.constructor(map.apply(this.elements, arguments));
+  }
+
   find(selector) {
-    return new this.constructor(union(this.elements.map(
-      element => slice(element.querySelectorAll(selector))
-    )));
+    return new this.constructor(mapMany(this.elements, element => find(element, selector)));
   }
 
   children() {
-    return new this.constructor(union(this.elements.map(
-      element => slice(element.children)
-    )));
+    return new this.constructor(mapMany(this.elements, children));
   }
 
   matching(selector) {
-    return new this.constructor(flatten(this.elements.filter(
-      element => matches(element, selector)
-    )));
+    return this.filter(element => matches(element, selector));
   }
 
   on(eventType, selector, listener) {
@@ -40,7 +52,7 @@ export default class Elements {
       selector = undefined;
     }
 
-    this.elements.forEach(element => {
+    this.forEach(element => {
       element.addEventListener(eventType, !selector ? listener : event => {
         if (element !== event.target && matches(event.target, selector)) {
           listener(event, event.data);

@@ -1,4 +1,4 @@
-import imperative from './imperative';
+import imperative from '../helpers/imperative';
 
 const elementProto = HTMLElement.prototype;
 
