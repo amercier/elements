@@ -13,7 +13,16 @@ export default function Elements(input) {
   return instance;
 }
 
-Elements.prototype = create(Array.prototype);, {
+function elementify(fn) {
+  return function() {
+    return new Elements(fn.apply(this, arguments));
+  };
+}
+
+Elements.prototype = create(Array.prototype, {
+  find: elementify(find),
+  children: elementify(children),
+
 
   find: function(selector) {
     return new Elements(mapMany(this, element => find(element, selector)));
