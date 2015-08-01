@@ -13,7 +13,7 @@ export default function Elements(input) {
   return instance;
 }
 
-Elements.prototype = create(Array.prototype, {
+Elements.prototype = create(Array.prototype);, {
 
   find: function(selector) {
     return new Elements(mapMany(this, element => find(element, selector)));
