@@ -8,10 +8,7 @@ var funnel = require('broccoli-funnel'),
   babel = require('broccoli-babel-transpiler'),
   browserify = require('broccoli-fast-browserify'),
   sourceMap = require('broccoli-source-map'),
-  stew = require('broccoli-stew'),
-  chalk = require('chalk'),
-  filesize = require('filesize'),
-  zlib = require('zlib');
+  fileSize = require('broccoli-file-size');
 
 var name = 'elementjs';
 
@@ -41,19 +38,9 @@ jsTree = mergeTrees([
   renameFiles(uglify(jsTree), { append: '.min' })
 ]);
 
-function displaySize(content, relativePath) {
-  var gzipped = zlib.gzipSync(new Buffer(content));
-  process.stdout.write(
-    chalk.yellow(relativePath)
-    + ' => ' + chalk.green(filesize(content.length))
-    + ' ' + chalk.grey('(' + filesize(gzipped.length) + ' gzipped)\n')
-  );
-  return content;
-}
-
 jsTree = mergeTrees([
   funnel(jsTree, { exclude: ['**/*.js'] }),
-  stew.map(funnel(jsTree, { include: ['**/*.js'] }), displaySize)
+  fileSize(funnel(jsTree, { include: ['**/*.js'] }))
 ]);
 
 module.exports = jsTree;
