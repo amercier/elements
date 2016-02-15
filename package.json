@@ -6,7 +6,7 @@
     "broccoli-babel-transpiler": "^5.2.3",
     "broccoli-cli": "^1.0.0",
     "broccoli-fast-browserify": "^0.2.7",
-    "broccoli-file-size": "^1.0.0",
+    "broccoli-file-size": "^2.0.0",
     "broccoli-funnel": "^0.2.3",
     "broccoli-merge-trees": "^0.2.2",
     "broccoli-rename-files": "0.0.3",
