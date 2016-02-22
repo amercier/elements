@@ -21,7 +21,7 @@
     "isparta": "^3.0.3",
     "istanbul": "^0.3.17",
     "karma": "^0.13.2",
-    "karma-browserify": "^4.2.1",
+    "karma-browserify": "^5.0.2",
     "karma-chrome-launcher": "^0.2.0",
     "karma-coverage": "^0.4.2",
     "karma-firefox-launcher": "^0.1.6",
