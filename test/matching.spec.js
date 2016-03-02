@@ -3,22 +3,22 @@ import forIn from 'lodash/internal/baseForIn';
 
 import Elements from '../src/elements';
 
-describe('matching', function() {
+describe('matching', function () {
 
   let fixture;
-  beforeEach(function() {
+  beforeEach(function () {
     loadMochaFixture('fixtures/test.html');
     fixture = document.getElementById('fixture');
   });
 
   describe('()', () => {
 
-    it('returns an instance of Elements', function() {
+    it('returns an instance of Elements', function () {
       const subject = new Elements(fixture.querySelectorAll('*')).matching();
       expect(subject).to.be.an.instanceof(Elements);
     });
 
-    it('returns an empty instance of Elements', function() {
+    it('returns an empty instance of Elements', function () {
       const subject = new Elements(fixture.querySelectorAll('*')).matching();
       expect(subject)
         .to.be.an('array')
@@ -33,15 +33,15 @@ describe('matching', function() {
     'p > *': 91,
     'article > * > * > *': 69,
     'main *': 363
-  }, function(count, selector) {
+  }, function (count, selector) {
     describe('("' + selector + '")', () => {
 
-      it('returns an instance of Elements', function() {
+      it('returns an instance of Elements', function () {
         const subject = new Elements(fixture.querySelectorAll('*')).matching(selector);
         expect(subject).to.be.an.instanceof(Elements);
       });
 
-      it('finds ' + count + ' elements', function() {
+      it('finds ' + count + ' elements', function () {
         const subject = new Elements(fixture.querySelectorAll('*')).matching(selector);
         expect(subject)
           .to.be.an('array')

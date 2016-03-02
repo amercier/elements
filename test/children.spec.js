@@ -3,10 +3,10 @@ import forIn from 'lodash/internal/baseForIn';
 
 import Elements from '../src/elements';
 
-describe('children', function() {
+describe('children', function () {
 
   let fixture;
-  beforeEach(function() {
+  beforeEach(function () {
     loadMochaFixture('fixtures/test.html');
     fixture = document.getElementById('fixture');
   });
@@ -17,15 +17,15 @@ describe('children', function() {
     ul: 33,
     li: 33,
     span: 0
-  }, function(count, selector) {
+  }, function (count, selector) {
     describe('new Element(' + selector + ').children()', () => {
 
-      it('returns an instance of Elements', function() {
+      it('returns an instance of Elements', function () {
         const subject = new Elements(fixture.querySelectorAll(selector)).children();
         expect(subject).to.be.an.instanceof(Elements);
       });
 
-      it('finds ' + count + ' elements', function() {
+      it('finds ' + count + ' elements', function () {
         const subject = new Elements(fixture.querySelectorAll(selector)).children();
         expect(subject)
           .to.be.an('array')

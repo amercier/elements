@@ -6,7 +6,7 @@ import Elements from '../src/elements';
 describe('constructor', () => {
 
   let fixture;
-  beforeEach(function() {
+  beforeEach(function () {
     loadMochaFixture('fixtures/test.html');
     fixture = document.getElementById('fixture');
   });

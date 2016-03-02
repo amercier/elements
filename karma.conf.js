@@ -11,7 +11,7 @@ var isContinuousIntegration = process.env.CI === 'true';
  *
  * @param {Object} config Karma configuration object
  */
-module.exports = function(config) {
+module.exports = function (config) {
 
   var istanbulify = ['browserify-istanbul', {
       instrumenter: require('isparta'),
