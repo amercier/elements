@@ -33,6 +33,7 @@
     "karma-sinon-chai": "^1.0.0",
     "lodash": "^4.6.0",
     "mocha": "^2.2.5",
+    "object-assign": "^4.0.1",
     "phantomjs": "^1.9.17",
     "simulant": "^0.1.5"
   },
