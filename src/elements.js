@@ -15,21 +15,21 @@ export default function Elements(input) {
 
 Elements.prototype = create(Array.prototype, {
 
-  find: function (selector) {
+  find(selector) {
     return new Elements(mapMany(this, element => find(element, selector)));
   },
 
-  children: function () {
+  children() {
     return new Elements(mapMany(this, children));
   },
 
-  matching: function (selector) {
+  matching(selector) {
     return this.filter(element => matches(element, selector));
   },
 
-  on: function (eventType, selector, listener) {
+  on(eventType, selector, listener) {
     return this.forEach(element => on(element, eventType, selector, listener));
-  }
+  },
 });
 
 [
@@ -53,10 +53,10 @@ Elements.prototype = create(Array.prototype, {
   'splice',
   // 'toLocaleString',
   // 'toString',
-  'unshift'
+  'unshift',
 ].forEach(name => {
   const method = Array.prototype[name];
-  Elements.prototype[name] = function () {
+  Elements.prototype[name] = () => {
     const result = method.apply(this, arguments);
     return result === undefined ? this : new Elements(result);
   };

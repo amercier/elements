@@ -6,7 +6,6 @@ import loadFixture from './loadFixture';
  * @returns {HTMLElement} Element that the fixture was rendered into
  */
 export default function loadMochaFixture(href) {
-
   let fixture = document.getElementById('fixture');
 
   if (fixture === null) {

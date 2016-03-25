@@ -4,15 +4,13 @@ import slice from '../src/helpers/slice';
 import Elements from '../src/elements';
 
 describe('constructor', () => {
-
   let fixture;
-  beforeEach(function () {
+  beforeEach(() => {
     loadMochaFixture('fixtures/test.html');
     fixture = document.getElementById('fixture');
   });
 
   describe('new Elements()', () => {
-
     it('doesn\'t fail', () => {
       expect(() => {
         new Elements();
@@ -20,9 +18,7 @@ describe('constructor', () => {
     });
   });
 
-
   describe('new Elements(Document)', () => {
-
     it('doesn\'t fail', () => {
       expect(() => {
         new Elements(document);
@@ -30,9 +26,7 @@ describe('constructor', () => {
     });
   });
 
-
   describe('new Elements(Document[])', () => {
-
     it('doesn\'t fail', () => {
       expect(() => {
         new Elements([document, document]);
@@ -47,9 +41,7 @@ describe('constructor', () => {
     });
   });
 
-
   describe('new Elements(NodeList)', () => {
-
     it('doesn\'t fail', () => {
       const input = fixture.querySelectorAll('p');
       expect(() => {
@@ -58,8 +50,8 @@ describe('constructor', () => {
     });
 
     it('contains all given elements', () => {
-      const input = fixture.querySelectorAll('p'),
-        length = input.length;
+      const input = fixture.querySelectorAll('p');
+      const length = input.length;
       expect(new Elements(input))
         .to.be.an('array')
         .that.has.length(length);
@@ -68,7 +60,6 @@ describe('constructor', () => {
 
 
   describe('new Elements(HTMLElement[])', () => {
-
     it('doesn\'t fail', () => {
       expect(() => {
         new Elements(slice(fixture.querySelectorAll('p')));
@@ -76,8 +67,8 @@ describe('constructor', () => {
     });
 
     it('contains all elements', () => {
-      const input = slice(fixture.querySelectorAll('p')),
-        subject = new Elements(input);
+      const input = slice(fixture.querySelectorAll('p'));
+      const subject = new Elements(input);
       expect(subject)
         .to.be.an('array')
         .that.has.length(input.length);
@@ -85,11 +76,11 @@ describe('constructor', () => {
 
     it('deduplicates input', () => {
       const input = [].concat(
-          slice(fixture.querySelectorAll('p')),
-          slice(fixture.querySelectorAll('p'))
-        ),
-        length = input.length / 2,
-        subject = new Elements(input);
+        slice(fixture.querySelectorAll('p')),
+        slice(fixture.querySelectorAll('p'))
+      );
+      const length = input.length / 2;
+      const subject = new Elements(input);
       expect(subject)
         .to.be.an('array')
         .that.has.length(length);
@@ -98,7 +89,6 @@ describe('constructor', () => {
 
 
   describe('new Elements({})', () => {
-
     it('fails', () => {
       expect(() => {
         new Elements({});
@@ -108,7 +98,6 @@ describe('constructor', () => {
 
 
   describe('new Elements(Elements)', () => {
-
     it('doesn\'t fail', () => {
       const input = new Elements(fixture.querySelectorAll('p'));
       expect(() => {
@@ -128,5 +117,4 @@ describe('constructor', () => {
       expect(new Elements(input)).not.to.equal(input);
     });
   });
-
 });

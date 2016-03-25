@@ -11,10 +11,9 @@ const call = Function.prototype.call;
  *     nodeArray instanceof Array; // => true
  *
  * @param {function} method Method to convert to imperative
- * @returns {function} Function that accepts the context as the first argument, and passes the rest onto the method
+ * @returns {function} Function that accepts the context as the first argument,
+ * and passes the rest onto the method
  */
 export default function imperative(method) {
-  return function () {
-    return call.apply(method, arguments);
-  };
+  return (...args) => call.apply(method, args);
 }
