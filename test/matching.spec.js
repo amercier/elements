@@ -1,5 +1,5 @@
 import loadMochaFixture from './helpers/loadMochaFixture';
-import forIn from 'lodash/internal/baseForIn';
+import forIn from 'lodash/_baseForIn';
 
 import Elements from '../src/elements';
 

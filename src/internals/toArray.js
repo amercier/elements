@@ -1,5 +1,5 @@
 import slice from '../helpers/slice';
-import uniq from 'lodash/internal/baseUniq';
+import uniq from 'lodash/_baseUniq';
 
 export default function toArray(input) {
   if (!input) {
