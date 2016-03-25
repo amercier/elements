@@ -5,13 +5,12 @@
  * @returns {HTMLElement} Element that fixture was rendered into
  */
 export default function loadFixture(href, target) {
-
-  const html = window.__html__['test/' + href]; /* eslint no-underscore-dangle: 0 */
+  const html = window.__html__[`test/${href}`]; // eslint-disable-line no-underscore-dangle
 
   if (!html) {
-    throw new Error('Cannot find fixture ' + href);
+    throw new Error(`Cannot find fixture ${href}`);
   }
 
-  target.innerHTML = html;
+  target.innerHTML = html; // eslint-disable-line no-param-reassign
   return target;
 }

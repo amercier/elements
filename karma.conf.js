@@ -11,16 +11,15 @@ var isContinuousIntegration = process.env.CI === 'true';
  *
  * @param {Object} config Karma configuration object
  */
-module.exports = function(config) {
-
+module.exports = function setup(config) {
   var istanbulify = ['browserify-istanbul', {
-      instrumenter: require('isparta'),
-      ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**']
-    }],
-    babelify = ['babelify', {
-      stage: 0,
-      ignore: ['./node_modules', './bower_components']
-    }];
+    instrumenter: require('isparta'),
+    ignore: ['**/*.spec.js', '**/bower_components/**', '**/node_modules/**'],
+  }];
+  var babelify = ['babelify', {
+    stage: 0,
+    ignore: ['./node_modules', './bower_components'],
+  }];
 
   config.set({
     singleRun: isContinuousIntegration,
@@ -32,7 +31,7 @@ module.exports = function(config) {
     files: [
       'src/**/*.js',
       'test/**/*.js',
-      'test/**/*.html'
+      'test/**/*.html',
     ],
 
     // Pre-processing:
@@ -40,12 +39,12 @@ module.exports = function(config) {
     // - HTML => JS
     browserify: {
       debug: true,
-      transform: isContinuousIntegration ? [istanbulify, babelify] : [babelify]
+      transform: isContinuousIntegration ? [istanbulify, babelify] : [babelify],
     },
     preprocessors: {
       '**/*.html': ['html2js'],
       'src/**/*.js': ['browserify'],
-      'test/**/*.js': ['browserify']
+      'test/**/*.js': ['browserify'],
     },
 
     // Browser configuration
@@ -53,26 +52,26 @@ module.exports = function(config) {
     customLaunchers: {
       PhantomJSDebug: {
         base: 'PhantomJS',
-        debug: true
+        debug: true,
       },
       ChromeTravisCI: {
         base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
+        flags: ['--no-sandbox'],
+      },
     },
 
     // Reporters
     reporters: isContinuousIntegration ? ['dots', 'coverage'] : ['progress'],
     client: {
       mocha: {
-        reporter: 'html' // Enable Mocha HTML reporter
-      }
+        reporter: 'html', // Enable Mocha HTML reporter
+      },
     },
     coverageReporter: {
       reporters: [
         { type: 'json' },
-        { type: 'html' }
-      ]
-    }
+        { type: 'html' },
+      ],
+    },
   });
 };

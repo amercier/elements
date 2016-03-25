@@ -3,34 +3,32 @@ import find from './internals/find';
 import mapMany from './internals/mapMany';
 import matches from './internals/matches';
 import on from './internals/on';
-import toArray from './internals/toArray';
+import toArray from 'lodash/toArray';
 
-import create from 'lodash/object/create';
+import create from 'lodash/create';
 
 export default function Elements(input) {
   const instance = toArray(input);
   instance.__proto__ = Elements.prototype; // eslint-disable-line no-proto
   return instance;
 }
+Elements.prototype = Object.create(Array.prototype);
 
-Elements.prototype = create(Array.prototype, {
+Elements.prototype.find = function find(selector) {
+  return new Elements(mapMany(this, element => find(element, selector)));
+};
 
-  find: function(selector) {
-    return new Elements(mapMany(this, element => find(element, selector)));
-  },
+Elements.prototype.children = function children() {
+  return new Elements(mapMany(this, children));
+};
 
-  children: function() {
-    return new Elements(mapMany(this, children));
-  },
+Elements.prototype.matching = function matching(selector) {
+  return this.filter(element => matches(element, selector));
+};
 
-  matching: function(selector) {
-    return this.filter(element => matches(element, selector));
-  },
-
-  on: function(eventType, selector, listener) {
-    return this.forEach(element => on(element, eventType, selector, listener));
-  }
-});
+Elements.prototype.on = function on(eventType, selector, listener) {
+  return this.forEach(element => on(element, eventType, selector, listener));
+};
 
 [
   // 'concat',
@@ -53,10 +51,10 @@ Elements.prototype = create(Array.prototype, {
   'splice',
   // 'toLocaleString',
   // 'toString',
-  'unshift'
+  'unshift',
 ].forEach(name => {
   const method = Array.prototype[name];
-  Elements.prototype[name] = function() {
+  Elements.prototype[name] = () => {
     const result = method.apply(this, arguments);
     return result === undefined ? this : new Elements(result);
   };
